@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,11 @@ public class GameManager : MonoBehaviour
         if (TimerCanvas != null)
         {
             AssignTimers();
+            InitialCustomers();
+        }
+        else
+        {
+            Debug.Log("Please add the TimerCanvas from the Hierarchy to the associated variable on this script.");
         }
     }
     void Start()
@@ -55,7 +61,21 @@ public class GameManager : MonoBehaviour
         customerTimer3 = TimerCanvas.transform.Find("CustomerTimer3");
         customerTimer4 = TimerCanvas.transform.Find("CustomerTimer4");
         customerTimer5 = TimerCanvas.transform.Find("CustomerTimer5");
+    }
 
+    private void InitialCustomers()
+    {
+        //When we instantiate customers pass along the slot number into the public class
+        int xPos = -4;
+        Vector3 spawnPos = new Vector3(-4, .3f, 3.6f);
+        for (int i = 0; i < 5; i++)
+        {
+            spawnPos.x = xPos;
+            GameObject go = Instantiate(Resources.Load("Prefabs/Customer"), spawnPos, Quaternion.identity) as GameObject;
+            Customer c = go.GetComponent<Customer>();
+            c.slotNum = i;
+            xPos += 2;
+        }
     }
 
     private void ChopTimer1Start()
@@ -70,48 +90,109 @@ public class GameManager : MonoBehaviour
 
     void CustomerTimer1Ended()
     {
-       //Destory current customer in slot1
-       //instantiate new customer in slot1
+        GameObject c1 = GameObject.Find("Customer 1");
+        Destroy(c1);
+
+        Vector3 spawnPos = new Vector3(-4, .3f, 3.6f);
+
+        GameObject go = Instantiate(Resources.Load("Prefabs/Customer"), spawnPos, Quaternion.identity) as GameObject;
+        Customer c = go.GetComponent<Customer>();
+        c.slotNum = 0;
     }
 
     void CustomerTimer2Ended()
     {
-        Debug.Log("TIMES UP");
+        GameObject c2 = GameObject.Find("Customer 2");
+        Destroy(c2);
+
+        Vector3 spawnPos = new Vector3(-2, .3f, 3.6f);
+
+        GameObject go = Instantiate(Resources.Load("Prefabs/Customer"), spawnPos, Quaternion.identity) as GameObject;
+        Customer c = go.GetComponent<Customer>();
+        c.slotNum = 1;
     }
 
     void CustomerTimer3Ended()
     {
-        Debug.Log("TIMES UP");
+        GameObject c3 = GameObject.Find("Customer 3");
+        Destroy(c3);
+
+        Vector3 spawnPos = new Vector3(0, .3f, 3.6f);
+
+        GameObject go = Instantiate(Resources.Load("Prefabs/Customer"), spawnPos, Quaternion.identity) as GameObject;
+        Customer c = go.GetComponent<Customer>();
+        c.slotNum = 2;
     }
 
     void CustomerTimer4Ended()
     {
-        Debug.Log("TIMES UP");
+        GameObject c4 = GameObject.Find("Customer 4");
+        Destroy(c4);
+
+        Vector3 spawnPos = new Vector3(2, .3f, 3.6f);
+
+        GameObject go = Instantiate(Resources.Load("Prefabs/Customer"), spawnPos, Quaternion.identity) as GameObject;
+        Customer c = go.GetComponent<Customer>();
+        c.slotNum = 3;
     }
 
     void CustomerTimer5Ended()
     {
-        Debug.Log("TIMES UP");
+        GameObject c5 = GameObject.Find("Customer 5");
+        Destroy(c5);
+
+        Vector3 spawnPos = new Vector3(4, .3f, 3.6f);
+
+        GameObject go = Instantiate(Resources.Load("Prefabs/Customer"), spawnPos, Quaternion.identity) as GameObject;
+        Customer c = go.GetComponent<Customer>();
+        c.slotNum = 4;
     }
 
     void ChopTimer1Ended()
     {
         if (isTwo == true)
         {
-            Debug.Log("Two Vegetables");
             Transform img = chopTimer1.Find("Image");
+            Transform img2 = chopTimer1.Find("Veg1");
+            Image im = img2.GetComponent<Image>();
+            im.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
             Timer t = img.GetComponent<Timer>();
             t.time = t.timeLeft;
             isTwo = false;
         }
         else
         {
+            Transform img2 = chopTimer1.Find("Veg1");
+            Image im = img2.GetComponent<Image>();
+            im.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
+            Transform img3 = chopTimer1.Find("Veg2");
+            Image im3 = img2.GetComponent<Image>();
+            im3.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
             chopTimer1.gameObject.SetActive(false);
         }
     }
     void ChopTimer2Ended()
     {
-        chopTimer2.gameObject.SetActive(false);
+        if (isTwo == true)
+        {
+            Transform img = chopTimer2.Find("Image");
+            Transform img2 = chopTimer2.Find("Veg1");
+            Image im = img2.GetComponent<Image>();
+            im.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
+            Timer t = img.GetComponent<Timer>();
+            t.time = t.timeLeft;
+            isTwo = false;
+        }
+        else
+        {
+            Transform img2 = chopTimer2.Find("Veg1");
+            Image im = img2.GetComponent<Image>();
+            im.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
+            Transform img3 = chopTimer2.Find("Veg2");
+            Image im3 = img2.GetComponent<Image>();
+            im3.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UIMask.psd");
+            chopTimer2.gameObject.SetActive(false);
+        }
     }
 
     void IsTwo()

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Vegetable
+  - Timer
+  - Customer
   layers:
   - Default
   - TransparentFX

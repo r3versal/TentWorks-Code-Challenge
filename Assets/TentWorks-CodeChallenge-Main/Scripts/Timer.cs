@@ -6,19 +6,33 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     private Image fillImage;
-    public float timeLeft = 10;
+    public float timeLeft;
     public float time;
     public Text timeText;
+    public Text recipeText;
+
+    public bool reset;
 
     void Start()
     {
+        reset = false;
         fillImage = this.GetComponent<Image>();
+
+        //This is how we know we are a chopping board timer
+        if(timeLeft == 0)
+        {
+            timeLeft = 10;
+        }
         time = timeLeft;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (reset)
+        {
+            time = timeLeft;
+            reset = false;
+        }
         if (time > 0)
         {
             time -= Time.deltaTime;
@@ -38,6 +52,7 @@ public class Timer : MonoBehaviour
                     break;
                 case "CustomerTimer1":
                     NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer1Ended");
+                    Debug.Log("test");
                     break;
                 case "CustomerTimer2":
                     NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer2Ended");
