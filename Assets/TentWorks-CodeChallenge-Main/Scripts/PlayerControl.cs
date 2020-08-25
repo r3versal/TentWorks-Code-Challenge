@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour
 
 		data.score = score;
 
-		//only save score to highscores if it is a top 10 score
+		//Only save score to highscores if it is a top 10 score
 		if (highScores.Count < 10)
 		{
 			highScores.Add(score);

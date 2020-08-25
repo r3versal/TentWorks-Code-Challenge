@@ -199,10 +199,4 @@ public class GameManager : MonoBehaviour
     {
         isTwo = true;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

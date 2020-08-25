@@ -5,17 +5,11 @@ using UnityEngine.UI;
 
 public class Customer : MonoBehaviour
 {
-    private bool isAngry;
-    private bool isSatisfied;
-    private bool isServed;
-
     private float timeLeft;
-    private float threshold;
+    public float threshold;
 
     public int existingCustomers;
     public int slotNum;
-
-    private GameObject custTimer;
 
     public Image customerTimer1;
     public Image customerTimer2;
@@ -29,8 +23,6 @@ public class Customer : MonoBehaviour
 
     void Start()
     {
-        isAngry = false;
-        isSatisfied = false;
         recipe = new Recipe();
         
         timeLeft = Random.Range(40, 80);

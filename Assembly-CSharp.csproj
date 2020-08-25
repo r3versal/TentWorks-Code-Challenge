@@ -63,7 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DynamicPopupController.cs" />
     <Compile Include="Assets\NotificationCenter.cs" />
+    <Compile Include="Assets\SceneController.cs" />
+    <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\BonusHandler.cs" />
+    <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\BonusPickup.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\Customer.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\CuttingBoard.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\GameManager.cs" />
@@ -74,9 +78,7 @@
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\PlayerActivity.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\PoolManager.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\Recipe.cs" />
-    <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\Singleton.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\Timer.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\VegObjectType.cs" />
     <Compile Include="Assets\TentWorks-CodeChallenge-Main\Scripts\VegetablePickup.cs" />

@@ -21,7 +21,7 @@ public class Timer : MonoBehaviour
         //This is how we know we are a chopping board timer
         if(timeLeft == 0)
         {
-            timeLeft = 10;
+            timeLeft = 5;
         }
         time = timeLeft;
     }
@@ -36,7 +36,7 @@ public class Timer : MonoBehaviour
         if (time > 0)
         {
             time -= Time.deltaTime;
-            fillImage.fillAmount = time / timeLeft; // Example: 9/10, 8/10......0/10
+            fillImage.fillAmount = time / timeLeft;
             timeText.text = "Time : " + time.ToString("F");
         }
         else

@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private string p1;
 
     private bool freezePlayer;
+    public bool bonusActive;
+
+    private float time;
 
     private void Awake()
     {
@@ -31,9 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
         NotificationCenter.DefaultCenter.AddObserver(this, "ChopTimer1Start");
         NotificationCenter.DefaultCenter.AddObserver(this, "ChopTimer2Start");
-
-        //TODO add notification observer that speed has changed via pickup and needs to be updated
-        //TODO add timer to support above speed changes
     }
 
     private void OnMovement(InputValue value)
@@ -79,7 +79,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
- 
+    private void Update()
+    {
+        if (bonusActive)
+        {
+            if (time > 0)
+            {
+                time -= Time.deltaTime;
+            }
+            else
+            {
+                movementSpeed = 3;
+                bonusActive = false;
+            }
+        }
+    }
 
     //Move player
     void LateUpdate()

@@ -26,7 +26,8 @@ public class HighScoreManager : MonoBehaviour
 
     void Savep1Data()
     {
-        p1Score = 74;
+        PlayerActivity go1 = GameObject.Find("Player1").GetComponent<PlayerActivity>();
+        p1Score = go1.score;
         p1ReadyToSave = true;
         if (p2ReadyToSave)
         {
@@ -36,7 +37,8 @@ public class HighScoreManager : MonoBehaviour
 
     void Savep2Data()
     {
-        p2Score = 34;
+        PlayerActivity go2 = GameObject.Find("Player2").GetComponent<PlayerActivity>();
+        p2Score = go2.score;
         p2ReadyToSave = true;
         if (p1ReadyToSave)
         {
@@ -46,6 +48,7 @@ public class HighScoreManager : MonoBehaviour
 
     void saveEverything()
     {
+        //Make sure this NEVER runs twice
         if (!oneTime)
         {
             oneTime = true;
@@ -55,6 +58,15 @@ public class HighScoreManager : MonoBehaviour
             PlayerControl.control.SaveAll();
             p1ReadyToSave = false;
             p2ReadyToSave = false;
+
+            if(maxNum == p1Score)
+            {
+                NotificationCenter.DefaultCenter.PostNotification(this, "UIEndGameP1");
+            }
+            else
+            {
+                NotificationCenter.DefaultCenter.PostNotification(this, "UIEndGameP2");
+            }
         }
 
     }
