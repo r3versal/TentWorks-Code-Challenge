@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
         NotificationCenter.DefaultCenter.AddObserver(this, "ChopTimer2Start");
 
         NotificationCenter.DefaultCenter.AddObserver(this, "IsTwo");
+
+        NotificationCenter.DefaultCenter.AddObserver(this, "SubtractPointsP1");
+        NotificationCenter.DefaultCenter.AddObserver(this, "SubtractPointsP2");
+        NotificationCenter.DefaultCenter.AddObserver(this, "SubtractPointsBothPlayers");
     }
 
     private void AssignTimers()
@@ -80,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     private void ChopTimer1Start()
     {
-        chopTimer1.gameObject.SetActive(true);
+       chopTimer1.gameObject.SetActive(true);
     }
 
     private void ChopTimer2Start()
@@ -195,8 +199,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void SubtractPointsBothPlayers()
+    {
+        GameObject p1 = GameObject.Find("Player1");
+        GameObject p2 = GameObject.Find("Player2");
+        SubtractPoints(p1, 5);
+        SubtractPoints(p2, 5);
+    }
+
+    void SubtractPointsP1()
+    {
+        GameObject p1 = GameObject.Find("Player1");
+        SubtractPoints(p1, 10);
+    }
+
+    void SubtractPointsP2()
+    {
+        GameObject p2 = GameObject.Find("Player2");
+        SubtractPoints(p2, 10);
+    }
+
     void IsTwo()
     {
         isTwo = true;
+    }
+
+    private void SubtractPoints(GameObject player, int points)
+    {
+        PlayerActivity pa = player.gameObject.GetComponent<PlayerActivity>();
+        pa.score -= points;
+        NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
     }
 }

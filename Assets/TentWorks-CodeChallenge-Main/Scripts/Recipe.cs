@@ -27,7 +27,9 @@ public class Recipe : MonoBehaviour
 
     public string[] GetRecipe()
     {
-        ingredients = new string[3];
+        int recipeSize = Random.Range(2,4);
+        Debug.Log(recipeSize);
+        ingredients = new string[recipeSize];
         if(vegetables == null)
         {
             vegetables = new string[]
@@ -39,7 +41,7 @@ public class Recipe : MonoBehaviour
                  "YellowBellPepper",
                  "Tomato"    };
         }
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < recipeSize; i++)
         {
             string j = vegetables[Random.Range(0, vegetables.Length)];
             ingredients[i] = j;

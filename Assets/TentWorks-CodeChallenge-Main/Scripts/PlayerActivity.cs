@@ -30,8 +30,6 @@ public class PlayerActivity : MonoBehaviour
     public List<string> vegetables;
     public List<string> ingredients;
 
-
-
     private void Awake()
     {
         playerNum = gameObject.name.Substring(0, 7);
@@ -39,8 +37,8 @@ public class PlayerActivity : MonoBehaviour
         p1 = gameObject.name.Substring(6, 1);
     }
     void Start()
-    {
-        if(playerNum == "Player1")
+    { 
+        if (playerNum == "Player1")
         {
             //assign text for time and score
             playerTimeText = GameObject.Find("Canvas/Player1 Stats/Timer").GetComponent<Text>();
@@ -56,8 +54,9 @@ public class PlayerActivity : MonoBehaviour
             veg1 = GameObject.Find("Canvas/Player2 Stats/VegHolder/Veg1").GetComponent<Image>();
             veg2 = GameObject.Find("Canvas/Player2 Stats/VegHolder/Veg2").GetComponent<Image>();
         }
+
         score = 0;
-        time = 30;
+        time = 250;
 
         playerScoreText.text = "Score : " + score;
         ingredients = new List<string>();
@@ -73,6 +72,7 @@ public class PlayerActivity : MonoBehaviour
 
         NotificationCenter.DefaultCenter.AddObserver(this, "PickedUpIngredientsP1");
         NotificationCenter.DefaultCenter.AddObserver(this, "PickedUpIngredientsP2");
+
         NotificationCenter.DefaultCenter.AddObserver(this, "UpdateScore");
     }
 
@@ -116,209 +116,101 @@ public class PlayerActivity : MonoBehaviour
     {
         GameObject timerCanvas = GameObject.FindGameObjectWithTag("Timer");
         string goName = go.gameObject.name;
-        int correct = 0;
 
-        if (goName.Contains("Customer"))
+        if (goName.Contains("Customer") && gameObject.name == "Player1")
+        {
+           switch (goName)
+            {
+                case "CustomerCollider 1":
+                    CustomerInteraction(timerCanvas, "Customer 1", "CustomerTimer1/Image", "CustomerTimer1Ended", "UICustomer1Angry", "SpawnBonus");
+                    break;
+                case "CustomerCollider 2":
+                    CustomerInteraction(timerCanvas, "Customer 2", "CustomerTimer2/Image", "CustomerTimer2Ended", "UICustomer2Angry", "SpawnBonus");
+                    break;
+                case "CustomerCollider 3":
+                    CustomerInteraction(timerCanvas, "Customer 3", "CustomerTimer3/Image", "CustomerTimer3Ended", "UICustomer3Angry", "SpawnBonus");
+                    break;
+                case "CustomerCollider 4":
+                    CustomerInteraction(timerCanvas, "Customer 4", "CustomerTimer4/Image", "CustomerTimer4Ended", "UICustomer4Angry", "SpawnBonus");
+                    break;
+                case "CustomerCollider 5":
+                    CustomerInteraction(timerCanvas, "Customer 5", "CustomerTimer5/Image", "CustomerTimer5Ended", "UICustomer5Angry", "SpawnBonus");
+                    break;
+            }
+        }
+        else if (goName.Contains("Customer") && gameObject.name == "Player2")
         {
             switch (goName)
             {
                 case "CustomerCollider 1":
-                    //get recipe
-                    GameObject customerGO = GameObject.Find("Customer 1");
-                    Customer c = customerGO.GetComponent<Customer>();
-                    string[] customerIngredients = c.ingredients;
-
-                    //Compare ingredients
-                    foreach(string s in customerIngredients)
-                    {
-                        if (ingredients.Contains(s))
-                        {
-                            correct++;
-                        }
-                    }
-                    if(correct == 3)
-                    {
-                        //Give player some points, send notification to end Customer 1 Timer
-                        score = +25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer1Ended");
-
-                        //Check if player made it before 70% of time, if so give bonus to player
-                        Image customerTimer1 = timerCanvas.transform.Find("CustomerTimer1/Image").GetComponent<Image>();
-                        Timer t = customerTimer1.GetComponent<Timer>();
-
-                        //TODO: determine if this logic is right
-                        if (t.timeLeft <= c.threshold)
-                        {
-                            score += 10;
-                            NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                            NotificationCenter.DefaultCenter.PostNotification(this, "SpawnBonus");
-                        }
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomerSuccess");
-                    }
-                    else
-                    {
-                        score -= 25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomer1Angry");
-                    }
+                    CustomerInteraction(timerCanvas, "Customer 1", "CustomerTimer1/Image", "CustomerTimer1Ended", "UICustomer1Angry", "SpawnBonusP2");
                     break;
                 case "CustomerCollider 2":
-                    GameObject customerGO2 = GameObject.Find("Customer 2");
-                    Customer c2 = customerGO2.GetComponent<Customer>();
-                    string[] customerIngredients2 = c2.ingredients;
-
-                    //Compare ingredients
-                    foreach (string s in customerIngredients2)
-                    {
-                        if (ingredients.Contains(s))
-                        {
-                            correct++;
-                        }
-                    }
-                    if (correct == 3)
-                    {
-                        //Give player some points, send notification to end Customer 1 Timer
-                        score = +25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer2Ended");
-
-                        //Check if player made it before 70% of time, if so give bonus to player
-                        Image customerTimer2 = timerCanvas.transform.Find("CustomerTimer2/Image").GetComponent<Image>();
-                        Timer t = customerTimer2.GetComponent<Timer>();
-
-                        //TODO: determine if this logic is right
-                        if (t.timeLeft <= c2.threshold)
-                        {
-                            score += 10;
-                            NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                            NotificationCenter.DefaultCenter.PostNotification(this, "SpawnBonus");
-                        }
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomerSuccess");
-                    }
-                    else
-                    {
-                        score -= 25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomer2Angry");
-                    }
+                    CustomerInteraction(timerCanvas, "Customer 2", "CustomerTimer2/Image", "CustomerTimer2Ended", "UICustomer2Angry", "SpawnBonusP2");
                     break;
                 case "CustomerCollider 3":
-                    GameObject customerGO3 = GameObject.Find("Customer 3");
-                    Customer c3 = customerGO3.GetComponent<Customer>();
-                    string[] customerIngredients3 = c3.ingredients;
-
-                    //Compare ingredients
-                    foreach (string s in customerIngredients3)
-                    {
-                        if (ingredients.Contains(s))
-                        {
-                            correct++;
-                        }
-                    }
-                    if (correct == 3)
-                    {
-                        //Give player some points, send notification to end Customer 1 Timer
-                        score = +25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer3Ended");
-
-                        //Check if player made it before 70% of time, if so give bonus to player
-                        Image customerTimer2 = timerCanvas.transform.Find("CustomerTimer3/Image").GetComponent<Image>();
-                        Timer t = customerTimer2.GetComponent<Timer>();
-
-                        //TODO: determine if this logic is right
-                        if (t.timeLeft <= c3.threshold)
-                        {
-                            score += 10;
-                            NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                            NotificationCenter.DefaultCenter.PostNotification(this, "SpawnBonus");
-                        }
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomerSuccess");
-                    }
-                    else
-                    {
-                        score -= 25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomer3Angry");
-                    }
+                    CustomerInteraction(timerCanvas, "Customer 3", "CustomerTimer3/Image", "CustomerTimer3Ended", "UICustomer3Angry", "SpawnBonusP2");
                     break;
                 case "CustomerCollider 4":
-                    GameObject customerGO4 = GameObject.Find("Customer 4");
-                    Customer c4 = customerGO4.GetComponent<Customer>();
-                    string[] customerIngredients4 = c4.ingredients;
-
-                    //Compare ingredients
-                    foreach (string s in customerIngredients4)
-                    {
-                        if (ingredients.Contains(s))
-                        {
-                            correct++;
-                        }
-                    }
-                    if (correct == 3)
-                    {
-                        //Give player some points, send notification to end Customer 1 Timer
-                        score = +25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer4Ended");
-
-                        //Check if player made it before 70% of time, if so give bonus to player
-                        Image customerTimer2 = timerCanvas.transform.Find("CustomerTimer4/Image").GetComponent<Image>();
-                        Timer t = customerTimer2.GetComponent<Timer>();
-
-                        //TODO: determine if this logic is right
-                        if (t.timeLeft <= c4.threshold)
-                        {
-                            score += 10;
-                            NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                            NotificationCenter.DefaultCenter.PostNotification(this, "SpawnBonus");
-                        }
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomerSuccess");
-                    }
-                    else
-                    {
-                        score -= 25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomer4Angry");
-                    }
+                    CustomerInteraction(timerCanvas, "Customer 4", "CustomerTimer4/Image", "CustomerTimer4Ended", "UICustomer4Angry", "SpawnBonusP2");
                     break;
                 case "CustomerCollider 5":
-                    GameObject customerGO5 = GameObject.Find("Customer 5");
-                    Customer c5 = customerGO5.GetComponent<Customer>();
-                    string[] customerIngredients5 = c5.ingredients;
-
-                    //Compare ingredients
-                    foreach (string s in customerIngredients5)
-                    {
-                        if (ingredients.Contains(s))
-                        {
-                            correct++;
-                        }
-                    }
-                    if (correct == 3)
-                    {
-                        //Give player some points, send notification to end Customer 1 Timer
-                        score = +25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer5Ended");
-
-                        //Check if player made it before 70% of time, if so give bonus to player
-                        Image customerTimer2 = timerCanvas.transform.Find("CustomerTimer5/Image").GetComponent<Image>();
-                        Timer t = customerTimer2.GetComponent<Timer>();
-
-                        //TODO: determine if this logic is right
-                        if (t.timeLeft <= c5.threshold)
-                        {
-                            score += 10;
-                            NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                            NotificationCenter.DefaultCenter.PostNotification(this, "SpawnBonus");
-                        }
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomerSuccess");
-                    }
-                    else
-                    {
-                        score -= 25;
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UpdateScore");
-                        NotificationCenter.DefaultCenter.PostNotification(this, "UICustomer5Angry");
-                    }
+                    CustomerInteraction(timerCanvas, "Customer 5", "CustomerTimer5/Image", "CustomerTimer5Ended", "UICustomer5Angry", "SpawnBonusP2");
                     break;
             }
+        }
+    }
+
+    private void CustomerInteraction(GameObject timerCanvas, string customerNumber, string customerNumImage, string customerNumTimerEnd, string customerNumAngry, string bonusNum)
+    {
+        //get recipe
+        GameObject customerGO = GameObject.Find(customerNumber);
+        Customer c = customerGO.GetComponent<Customer>();
+        string[] customerIngredients = c.ingredients;
+        int correct = 0;
+
+        Image customerTimer1 = timerCanvas.transform.Find(customerNumImage).GetComponent<Image>();
+        Timer t = customerTimer1.GetComponent<Timer>();
+
+        //Compare ingredients
+        foreach (string s in customerIngredients)
+        {
+            if (ingredients.Contains(s))
+            {
+                correct++;
+            }
+        }
+        if (correct == c.ingredients.Length)
+        {
+            //Give player some points, send notification to end Customer 1 Timer
+            score += 25;
+            UpdateScore();
+            NotificationCenter.DefaultCenter.PostNotification(this, customerNumTimerEnd);
+            
+            //Check if player made it before 70% of time, if so give bonus to player
+            if (t.time > c.threshold)//example: t.time > .3 of total time
+            {
+                score += 10;
+                UpdateScore();
+                NotificationCenter.DefaultCenter.PostNotification(this, bonusNum);
+            }
+            else
+            {
+                NotificationCenter.DefaultCenter.PostNotification(this, "UICustomerSuccess");
+            }
+            veg1.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            
+        }
+        else
+        {
+            UpdateScore();
+            NotificationCenter.DefaultCenter.PostNotification(this, customerNumAngry);
+            veg1.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/UISprite.psd");
+            if(bonusNum == "SpawnBonus")
+            {
+                t.isP1 = true;
+            }
+            t.isAngry = true;
         }
     }
 
@@ -384,8 +276,10 @@ public class PlayerActivity : MonoBehaviour
         if (time > 0)
         {
             time -= Time.deltaTime;
+
+            string minutes = Mathf.Floor(time / 60).ToString("00");
             string seconds = (time % 60).ToString("00");
-            playerTimeText.text = "Time : " + seconds;
+            playerTimeText.text = "Time " + minutes + ":" + seconds;
         }
         else
         {

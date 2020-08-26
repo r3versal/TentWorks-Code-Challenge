@@ -27,6 +27,7 @@ public class DynamicPopupController : MonoBehaviour
         NotificationCenter.DefaultCenter.AddObserver(this, "UICustomer3Angry");
         NotificationCenter.DefaultCenter.AddObserver(this, "UICustomer4Angry");
         NotificationCenter.DefaultCenter.AddObserver(this, "UICustomer5Angry");
+        NotificationCenter.DefaultCenter.AddObserver(this, "UICustomerSuccess");
         NotificationCenter.DefaultCenter.AddObserver(this, "UIEndGameP1");
         NotificationCenter.DefaultCenter.AddObserver(this, "UIEndGameP2");
 
@@ -168,7 +169,6 @@ public class DynamicPopupController : MonoBehaviour
             if (time > 0)
             {
                 time -= Time.deltaTime;
-                Debug.Log(time);
             }
             else
             {

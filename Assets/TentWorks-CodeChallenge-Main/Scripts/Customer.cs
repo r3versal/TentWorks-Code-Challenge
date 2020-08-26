@@ -24,10 +24,17 @@ public class Customer : MonoBehaviour
     void Start()
     {
         recipe = new Recipe();
-        
-        timeLeft = Random.Range(40, 80);
         ingredients = recipe.GetRecipe();
-        threshold = timeLeft * .7f;
+        
+        if(ingredients.Length == 2)
+        {
+            timeLeft = Random.Range(80, 120);
+        }
+        else
+        {
+            timeLeft = Random.Range(120, 160);
+        }
+        threshold = timeLeft * .3f;
 
         AssignTimer();
     }

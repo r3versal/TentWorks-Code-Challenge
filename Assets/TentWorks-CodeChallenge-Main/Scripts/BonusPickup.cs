@@ -12,7 +12,7 @@ public class BonusPickup : MonoBehaviour
         PlayerActivity pa = player.GetComponent<PlayerActivity>();
         string bonus = gameObject.name;
 
-        if (pa.name == playerName)
+       if (pa.name == playerName)
         {
             //Apply spawned bonus
             switch (bonus)
@@ -30,7 +30,7 @@ public class BonusPickup : MonoBehaviour
                     pa.time += 25;
                         break;
             }
-            Destroy(this);
+            Destroy(gameObject);
         }
 
     }

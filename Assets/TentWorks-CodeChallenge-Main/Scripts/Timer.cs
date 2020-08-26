@@ -11,6 +11,10 @@ public class Timer : MonoBehaviour
     public Text timeText;
     public Text recipeText;
 
+    public bool isAngry;
+    private bool isAngryTime;
+    public bool isP1;
+
     public bool reset;
 
     void Start()
@@ -32,12 +36,23 @@ public class Timer : MonoBehaviour
         {
             time = timeLeft;
             reset = false;
+            isAngry = false;
+            isP1 = false;
         }
         if (time > 0)
         {
-            time -= Time.deltaTime;
+            if (isAngry)
+            {
+                time -= Time.deltaTime * 2;
+            }
+            else
+            {
+                time -= Time.deltaTime;
+            }
             fillImage.fillAmount = time / timeLeft;
-            timeText.text = "Time : " + time.ToString("F");
+            string minutes = Mathf.Floor(time / 60).ToString("00");
+            string seconds = (time % 60).ToString("00");
+            timeText.text = "Time " + minutes + ":" + seconds;
         }
         else
         {
@@ -52,19 +67,93 @@ public class Timer : MonoBehaviour
                     break;
                 case "CustomerTimer1":
                     NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer1Ended");
-                    Debug.Log("test");
+                    if (isAngry)
+                    {
+                        if (isP1)
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP1");
+                        }
+                        else
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP2");
+                        }
+                    }
+                    else
+                    {
+                        NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsBothPlayers");
+                    }
                     break;
                 case "CustomerTimer2":
                     NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer2Ended");
+                    if (isAngry)
+                    {
+                        if (isP1)
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP1");
+                        }
+                        else
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP2");
+                        }
+                    }
+                    else
+                    {
+                     NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsBothPlayers");
+                    }
                     break;
                 case "CustomerTimer3":
                     NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer3Ended");
+                    if (isAngry)
+                    {
+                        if (isP1)
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP1");
+                        }
+                        else
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP2");
+                        }
+                    }
+                    else
+                    {
+                        NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsBothPlayers");
+                    }
                     break;
                 case "CustomerTimer4":
                     NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer4Ended");
+                    if (isAngry)
+                    {
+                        if (isP1)
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP1");
+                        }
+                        else
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP2");
+                        }
+                    }
+                    else
+                    {
+                        NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsBothPlayers");
+                    }
                     break;
                 case "CustomerTimer5":
                     NotificationCenter.DefaultCenter.PostNotification(this, "CustomerTimer5Ended");
+                    if (isAngry)
+                    {
+                        if (isP1)
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP1");
+                        }
+                        else
+                        {
+                            NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsP2");
+                        }
+                    }
+                    else
+                    {
+                        NotificationCenter.DefaultCenter.PostNotification(this, "SubtractPointsBothPlayers");
+                    }
                     break;
 
             }
