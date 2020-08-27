@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
+  bonusActive: 0
 --- !u!114 &769880835681994824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,4 +171,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883ee3e1ff2ebc24abd25b57dbdf38b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  score: 0
+  time: 0
+  gameTime: 250
+  veg1: {fileID: 0}
+  veg2: {fileID: 0}
+  vegetables: []
+  ingredients: []
